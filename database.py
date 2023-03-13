@@ -5,7 +5,7 @@ cur = db.cursor()
 
 
 async def db_start():
-    cur.execute("CREATE TABLE IF NOT EXISTS accounts(a_id TEXT PRIMARY KEY, cart_id TEXT)")
+    cur.execute("CREATE TABLE IF NOT EXISTS accounts(a_id TEXT PRIMARY KEY, cart_id TEXT), brand TEXT")
     cur.execute("CREATE TABLE IF NOT EXISTS items(i_id TEXT PRIMARY KEY, name TEXT, desc TEXT, price TEXT, photo TEXT)")
     cur.execute("CREATE TABLE IF NOT EXISTS brands(b_id TEXT PRIMARY KEY, name TEXT, b_desc TEXT)")
     db.commit()

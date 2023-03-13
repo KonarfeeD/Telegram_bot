@@ -73,8 +73,6 @@ async def cancel(message: types.Message, state: FSMContext):
 @dp.message_handler(text='Добавить товар')
 async def add_item(message: types.Message, state: FSMContext) -> None:
     await AddItems.category.set()
-    async with state.proxy() as data:
-        data['category'] = message.text
     if message.from_user.id == int(os.getenv('ADMIN_ID')):
         await message.answer(f'Выберите категорию', reply_markup=kb.category)
     await AddItems.next()
@@ -84,7 +82,7 @@ async def add_item(message: types.Message, state: FSMContext) -> None:
 async def add_item_category(message: types.Message, state: FSMContext) -> None:
     await AddItems.number.set()
     async with state.proxy() as data:
-        data['number'] = message.text
+        data['category'] = message.text
     await message.answer(f'Напишите НОМЕР (ЛОТ) товара (цифры)', reply_markup=kb.cancel)
     await AddItems.next()
 
@@ -139,6 +137,8 @@ async def add_item_price(message: types.Message, state: FSMContext) -> None:
                              caption=f"{data['name']}, {data['desc']}\n{data['price']}")
     await create_profile(item_id=data['iid'])
     await edit_profile(state, item_id=data['iid'])
+    cur.execute("INSERT INTO items VALUES(?, ?, ?, ?, ?)", (item_id, '', '', '', ''))
+    db.commit()
     db.commit()
     await message.reply('Товар успешно создан!', reply_markup=kb.admin_main)
     await state.finish()

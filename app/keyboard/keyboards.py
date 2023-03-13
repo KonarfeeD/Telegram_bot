@@ -17,7 +17,7 @@ cancel = ReplyKeyboardMarkup(resize_keyboard=True)
 cancel.add('Отмена')
 
 category = ReplyKeyboardMarkup(resize_keyboard=True)
-category.add("Мужская одежда").add("Женская одежда").add("Детская одежда")
+category.add("Мужская одежда").add("Женская одежда").add("Детская одежда").add('Отмена')
 #  ------------------------------------------------------------------
 """
 Скрипт создания онлайн кнопок в каталоге с помощью перебора всех имён в БД
