@@ -14,7 +14,7 @@ async def db_start():
 async def create_profile(item_id):
     user = cur.execute("SELECT 1 FROM items WHERE i_id == '{key}'".format(key=item_id)).fetchone()
     if not user:
-        cur.execute("INSERT INTO items VALUES(?, ?, ?, ?, ?)", (item_id, '', '', '', ''))
+        cur.execute("INSERT INTO items VALUES(?, ?, ?, ?, ?, ?)", (item_id, '', '', '', '', ''))
         db.commit()
 
 

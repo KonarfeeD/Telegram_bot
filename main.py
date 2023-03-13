@@ -137,7 +137,6 @@ async def add_item_price(message: types.Message, state: FSMContext) -> None:
                              caption=f"{data['name']}, {data['desc']}\n{data['price']}")
     await create_profile(item_id=data['iid'])
     await edit_profile(state, item_id=data['iid'])
-    cur.execute("INSERT INTO accounts VALUES(?, ?, ?, ?, ?, ?)", (item_id, '', '', '', '', ''))
     db.commit()
     await message.reply('Товар успешно создан!', reply_markup=kb.admin_main)
     await state.finish()
