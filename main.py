@@ -70,13 +70,6 @@ async def cancel(message: types.Message, state: FSMContext):
         await message.answer(f'Вы авторизовались как администратор!', reply_markup=kb.admin_main)
 
 
-@dp.message_handler(text='Добавить категорию')
-async def add_item(message: types.Message) -> None:
-    await AddItems.category.set()
-    if message.from_user.id == int(os.getenv('ADMIN_ID')):
-        await message.answer(f'Выберите категорию', reply_markup=kb.category)
-
-
 @dp.message_handler(text='Добавить товар')
 async def add_item(message: types.Message) -> None:
     await AddItems.number.set()
@@ -84,6 +77,15 @@ async def add_item(message: types.Message) -> None:
         await message.answer(f'Напишите НОМЕР (ЛОТ) товара (цифры)', reply_markup=kb.cancel)
     else:
         await message.answer(f'Неизвестная команда!')
+
+
+@dp.message_handler(state=AddItems.category)
+async def add_item_category(message: types.Message, state: FSMContext) -> None:
+    await AddItems.category.set()
+    async with state.proxy() as data:
+        data['category'] = message.text
+    await message.answer(f'Выберите категорию', reply_markup=kb.category)
+    await AddItems.next()
 
 
 @dp.message_handler(state=AddItems.number)
