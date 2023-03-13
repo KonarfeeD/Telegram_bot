@@ -20,6 +20,6 @@ async def create_profile(item_id):
 
 async def edit_profile(state, item_id):
     async with state.proxy() as data:
-        cur.execute("UPDATE items SET name = '{}', desc = '{}', price = '{}', photo = '{}' WHERE i_id == '{}'".format(
-            data['name'], data['desc'], data['price'], data['photo'], item_id))
+        cur.execute("UPDATE items SET name = '{}', desc = '{}', price = '{}', photo = '{}', brand = '{}', WHERE i_id == '{}'".format(
+            data['name'], data['desc'], data['price'], data['photo'], data['category'], item_id))
         db.commit()
