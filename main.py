@@ -29,6 +29,7 @@ class AddItems(StatesGroup):
     desc = State()
     photo = State()
     price = State()
+    category = State()
 
 
 class DeleteItems(StatesGroup):
@@ -56,7 +57,7 @@ async def cmd_start(message: types.Message):
         await message.answer(f'Вы авторизовались как администратор!', reply_markup=kb.admin_main)
 
 
-@dp.message_handler(text='Контакты 📱')
+@dp.message_handler(text='Контакты 📲')
 async def contacts(message: types.Message):
     await message.answer(f'По всем интересующим вопросам, обращаться по номеру:📲 +998903944839')
 
@@ -67,6 +68,13 @@ async def cancel(message: types.Message, state: FSMContext):
     await message.answer(f'Отменено.', reply_markup=kb.main)
     if message.from_user.id == int(os.getenv('ADMIN_ID')):
         await message.answer(f'Вы авторизовались как администратор!', reply_markup=kb.admin_main)
+
+
+@dp.message_handler(text='Добавить категорию')
+async def add_item(message: types.Message) -> None:
+    await AddItems.category.set()
+    if message.from_user.id == int(os.getenv('ADMIN_ID')):
+        await message.answer(f'Выберите категорию', reply_markup=kb.category)
 
 
 @dp.message_handler(text='Добавить товар')

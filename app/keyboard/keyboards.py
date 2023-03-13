@@ -16,6 +16,8 @@ admin_panel.add('Добавить товар').add('Удалить товар').
 cancel = ReplyKeyboardMarkup(resize_keyboard=True)
 cancel.add('Отмена')
 
+category = ReplyKeyboardMarkup(resize_keyboard=True)
+category.add("Мужская одежда").add("Женская одежда").add("Детская одежда")
 #  ------------------------------------------------------------------
 """
 Скрипт создания онлайн кнопок в каталоге с помощью перебора всех имён в БД
