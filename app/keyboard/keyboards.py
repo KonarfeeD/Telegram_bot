@@ -24,9 +24,20 @@ category.add("Мужская одежда").add("Женская одежда").a
 """
 
 
+# def catalog_buttons():
+#    cur.execute("SELECT name FROM items")
+#    items = cur.fetchall()
+#    for item in items:
+#        button = InlineKeyboardButton(item[0], callback_data=item[0])
+#        buttons.append(button)
+#
+#    catalog = InlineKeyboardMarkup(row_width=2)
+#    return catalog.add(*buttons)
+
+
 def catalog_buttons():
     buttons = []
-    cur.execute("SELECT name FROM items")
+    cur.execute("SELECT brand FROM items")
     items = cur.fetchall()
     for item in items:
         button = InlineKeyboardButton(item[0], callback_data=item[0])
